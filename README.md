@@ -1,2 +1,2 @@
 # bootcamp-dio
-prompts prontos para copioots de IA - 
+prompts prontos para copilotos de IA - 
