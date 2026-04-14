@@ -29,8 +29,8 @@ const player2 = {
 const player3 = {
     NOME: "Electro",
     STRENGTH: 7,
-    AGILIDADE: 7,
-    ARMAS:  4,
+    AGILIDADE: 6,
+    ARMAS:  5,
     DEFESA: 2,
     PONTOS: 0,
 
@@ -40,11 +40,11 @@ const player3 = {
 };
 
 const player4 = {
-    NOME: "Lagarto",
-    STRENGTH: 6,
-    AGILIDADE: 4,
-    ARMAS:  2,
-    DEFESA: 7,
+    NOME: "Abutre",
+    STRENGTH: 3,
+    AGILIDADE: 7,
+    ARMAS:  5,
+    DEFESA: 5,
     PONTOS: 0,
 
 
@@ -54,10 +54,10 @@ const player4 = {
 
 const player5 = {
     NOME: "Dr. Octopus",
-    STRENGTH: 5,
-    AGILIDADE: 3,
-    ARMAS:  7,
-    DEFESA: 5,
+    STRENGTH: 4,
+    AGILIDADE: 4,
+    ARMAS:  6,
+    DEFESA: 6,
     PONTOS: 0,
 
 
@@ -77,18 +77,47 @@ const player6= {
 
 }
 
+const player7= {
+    NOME: "Mysterio",
+    STRENGTH: 3,
+    AGILIDADE: 7,
+    ARMAS:  7,
+    DEFESA: 3,
+    PONTOS: 0,
+
+
+}
+const player8= {
+    NOME: "Kraven",
+    STRENGTH: 5,
+    AGILIDADE: 7,
+    ARMAS:  6,
+    DEFESA: 2,
+    PONTOS: 0,
+
+
+}
+
+
 async function getrandomblock() {
     let random = Math.random()
     let result
 
     switch (true) {
         case random < 0.25:
-            result = "TÁTICO"
+            result = "TÁTICA"
             break;
         case random < 0.50:
             result = "VELOZ"
             break;
+        case random < 0.75:
+            result = "DIRETA"
+            break;
+        default:
+            result = "CONTRA-ATAQUE"
+            break;
     }
+    return result
 }
 
 async function rolldice() {
@@ -101,12 +130,42 @@ async function rolldice() {
 });
 
 async function playfightengine(character1, character2) {
-
+//Fase
     for(let round = 1; round <= 5; round++) {
         console.log(`Confronto está na fase ${round}!`)
 
         // sorteio
         let block = await getrandomblock()
+
+        //rolar dados
+        let diceResult1 = await rollDice()
+        let diceResult2 = await rollDice()
+        
+        let totalTestSkill1 = 0
+        let totalTestSkill2 = 0
+        
+        if (block === "TÁTICA") {
+            totalTestSkill1 = diceResult1 + character1.ARMAS
+            totalTestSkill1 = diceResult1 + character1.ARMAS
+        }
+
+            
+        if (block === "VELOZ") {
+            totalTestSkill1 = diceResult1 + character1.AGILIDADE
+            totalTestSkill2 = diceResult2 + character2.AGILIDADE
+        }
+            
+        if (block === "DIRETA") {
+            totalTestSkill1 = diceResult1 + character1.STRENGTH
+            totalTestSkill1 = diceResult2 + character2.STRENGTH
+            
+        }
+            
+        if (block === "CONTRA-ATAQUE") {
+            let powerResult1 = diceResult1 + character1.DEFESA
+            let powerResult2 = diceResult2 + character2.DEFESA
+            
+        }
     }
 }
 
