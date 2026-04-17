@@ -99,7 +99,7 @@ const player8= {
 }
 
 
-async function getrandomblock() {
+async function getRandomBlock() {
     let random = Math.random()
     let result
 
@@ -120,8 +120,9 @@ async function getrandomblock() {
     return result
 }
 
-async function logRollResult(characterName, block, diceresult, attribute) {
-    console.log(`${characterName}  rolou o dado de ${block} ${diceResult} `);
+async function logRollResult(characterName, block, diceResult, attribute) {
+    console.log(`${characterName}  rolou o dado de ${block} ${diceResult} =
+        ${attribute} = ${diceResult + attribute} `);
 }
 
 async function rolldice() {
@@ -151,17 +152,43 @@ async function playfightengine(character1, character2) {
         if (block === "TÁTICA") {
             totalTestSkill1 = diceResult1 + character1.ARMAS
             totalTestSkill1 = diceResult1 + character1.ARMAS
+            await  logRollResult(
+                character1.NOME,
+                 "Armas", 
+                 diceResult1,
+                character1.ARMAS);
+
+             await  logRollResult(
+                character2.NOME,
+                 "Armas", 
+                 diceResult2,
+                character2.ARMAS);
         }
 
             
         if (block === "VELOZ") {
             totalTestSkill1 = diceResult1 + character1.AGILIDADE
             totalTestSkill2 = diceResult2 + character2.AGILIDADE
+            await  logRollResult(
+                character1.NOME,
+                 "Agilidade", 
+                 diceResult1,
+                character1.AGILIDADE);
+
+             await  logRollResult(
+                character2.NOME,
+                 "Agilidade", 
+                 diceResult2,
+                character2.AGILIDADE);
+        }
+
+
         }
             
         if (block === "DIRETA") {
             totalTestSkill1 = diceResult1 + character1.STRENGTH
             totalTestSkill1 = diceResult2 + character2.STRENGTH
+            
             
         }
             
@@ -170,9 +197,19 @@ async function playfightengine(character1, character2) {
             let powerResult2 = diceResult2 + character2.DEFESA
             
         }
+        if(totalTestSkill1 > totalTestSkill2){
+            console.log(`${character1.NOME} marca um ponto!`);
+            character1.PONTOS++;
+        } else if(totalTestSkill2 > totalTestSkill2){
+              console.log(`${character2.NOME} marca um ponto!`);
+            character2.PONTOS++;
+        }
     }
-}
+
+    console.log("_____________________________________________");
+
 
 (async function main () {
     await playfightengine(player1, player2)
 })
+
