@@ -120,6 +120,10 @@ async function getrandomblock() {
     return result
 }
 
+async function logRollResult(characterName, block, diceresult, attribute) {
+    console.log(`${characterName}  rolou o dado de ${block} ${diceResult} `);
+}
+
 async function rolldice() {
     return Math.floor(Math.random() * 6) + 1;
 }
@@ -172,4 +176,3 @@ async function playfightengine(character1, character2) {
 (async function main () {
     await playfightengine(player1, player2)
 })
-
