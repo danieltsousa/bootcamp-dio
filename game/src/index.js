@@ -99,117 +99,86 @@ const player8= {
 }
 
 
-async function getRandomBlock() {
-    let random = Math.random()
-    let result
+// ... (mantenha a definição dos objetos player1 até player8 que você já criou)
 
+async function getRandomBlock() {
+    let random = Math.random();
     switch (true) {
-        case random < 0.25:
-            result = "TÁTICA"
-            break;
-        case random < 0.50:
-            result = "VELOZ"
-            break;
-        case random < 0.75:
-            result = "DIRETA"
-            break;
-        default:
-            result = "CONTRA-ATAQUE"
-            break;
+        case random < 0.25: return "TÁTICA";
+        case random < 0.50: return "VELOZ";
+        case random < 0.75: return "DIRETA";
+        default: return "CONTRA-ATAQUE";
     }
-    return result
 }
 
 async function logRollResult(characterName, block, diceResult, attribute) {
-    console.log(`${characterName}  rolou o dado de ${block} ${diceResult} =
-        ${attribute} = ${diceResult + attribute} `);
+    console.log(`${characterName} rolou o dado de ${block}: ${diceResult} + ${attribute} = ${diceResult + attribute}`);
 }
 
-async function rolldice() {
+async function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 }
-(async function main() {
-    console.log(
-        `${player1.NOME} em ação! 🕸️ `
-    )
-});
 
-async function playfightengine(character1, character2) {
-//Fase
-    for(let round = 1; round <= 5; round++) {
-        console.log(`Confronto está na fase ${round}!`)
+async function playFightEngine(character1, character2) {
+    for (let round = 1; round <= 5; round++) {
+        console.log(`\n--- Rodada ${round} ---`);
 
-        // sorteio
-        let block = await getrandomblock()
-
-        //rolar dados
-        let diceResult1 = await rollDice()
-        let diceResult2 = await rollDice()
+        let block = await getRandomBlock();
+        let dice1 = await rollDice();
+        let dice2 = await rollDice();
         
-        let totalTestSkill1 = 0
-        let totalTestSkill2 = 0
-        
+        let score1 = 0;
+        let score2 = 0;
+
         if (block === "TÁTICA") {
-            totalTestSkill1 = diceResult1 + character1.ARMAS
-            totalTestSkill1 = diceResult1 + character1.ARMAS
-            await  logRollResult(
-                character1.NOME,
-                 "Armas", 
-                 diceResult1,
-                character1.ARMAS);
-
-             await  logRollResult(
-                character2.NOME,
-                 "Armas", 
-                 diceResult2,
-                character2.ARMAS);
+            score1 = dice1 + character1.ARMAS;
+            score2 = dice2 + character2.ARMAS;
+            await logRollResult(character1.NOME, "Armas", dice1, character1.ARMAS);
+            await logRollResult(character2.NOME, "Armas", dice2, character2.ARMAS);
         }
 
-            
         if (block === "VELOZ") {
-            totalTestSkill1 = diceResult1 + character1.AGILIDADE
-            totalTestSkill2 = diceResult2 + character2.AGILIDADE
-            await  logRollResult(
-                character1.NOME,
-                 "Agilidade", 
-                 diceResult1,
-                character1.AGILIDADE);
-
-             await  logRollResult(
-                character2.NOME,
-                 "Agilidade", 
-                 diceResult2,
-                character2.AGILIDADE);
+            score1 = dice1 + character1.AGILIDADE;
+            score2 = dice2 + character2.AGILIDADE;
+            await logRollResult(character1.NOME, "Agilidade", dice1, character1.AGILIDADE);
+            await logRollResult(character2.NOME, "Agilidade", dice2, character2.AGILIDADE);
         }
 
-
-        }
-            
         if (block === "DIRETA") {
-            totalTestSkill1 = diceResult1 + character1.STRENGTH
-            totalTestSkill1 = diceResult2 + character2.STRENGTH
-            
-            
+            console.log(`🥊 BLOCO: DIRETA (Ataque de ${character1.NOME})`);
+            score1 = dice1 + character1.STRENGTH; // Ataque do P1
+            score2 = dice2 + character2.DEFESA;   // Defesa do P2
+            await logRollResult(character1.NOME, "Ataque (Força)", dice1, character1.STRENGTH);
+            await logRollResult(character2.NOME, "Defesa", dice2, character2.DEFESA);
         }
-            
+
         if (block === "CONTRA-ATAQUE") {
-            let powerResult1 = diceResult1 + character1.DEFESA
-            let powerResult2 = diceResult2 + character2.DEFESA
-            
+            console.log(`⚡ BLOCO: CONTRA-ATAQUE (Ataque de ${character2.NOME})`);
+            score1 = dice1 + character1.DEFESA;   // Defesa do P1
+            score2 = dice2 + character2.STRENGTH; // Ataque do P2
+            await logRollResult(character1.NOME, "Defesa", dice1, character1.DEFESA);
+            await logRollResult(character2.NOME, "Ataque (Força)", dice2, character2.STRENGTH);
         }
-        if(totalTestSkill1 > totalTestSkill2){
-            console.log(`${character1.NOME} marca um ponto!`);
+
+        // Verificação de vencedor do Round
+        if (score1 > score2) {
+            console.log(`⭐ ${character1.NOME} venceu o confronto!`);
             character1.PONTOS++;
-        } else if(totalTestSkill2 > totalTestSkill2){
-              console.log(`${character2.NOME} marca um ponto!`);
+        } else if (score2 > score1) {
+            console.log(`⭐ ${character2.NOME} venceu o confronto!`);
             character2.PONTOS++;
+        } else {
+            console.log("🤝 Empate nesta rodada!");
         }
     }
 
-    console.log("_____________________________________________");
+    console.log("\n_____________________________________________");
+    console.log(`PLACAR FINAL: ${character1.NOME} ${character1.PONTOS} X ${character2.PONTOS} ${character2.NOME}`);
+}
 
-
-(async function main () {
-    await playfightengine(player1, player2)
-})
+// Inicialização
+(async function main() {
+    console.log(`🥊 Iniciando luta entre ${player1.NOME} e ${player2.NOME}!\n`);
+    await playFightEngine(player1, player2);
+})();
 
