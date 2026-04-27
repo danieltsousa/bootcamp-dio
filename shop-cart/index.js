@@ -1,7 +1,10 @@
+import * as cartService from "./services/cart.js"
+
 import createItem from "./services/item.js";
 
 
-const cart = [];
+
+const myCart = [];
 
 console.log("Welcome to the shopping cart!");
 
@@ -13,7 +16,9 @@ const item3 = await createItem("Wireless headphones Soundcore", 89.99, 1);
 
 const item4 = await createItem("Screenium Oled Monitor ", 299.99, 1);
 
-console.log("subtotal de Item 1: " + item1.subtotal());
-console.log("subtotal de Item 2: " + item2.subtotal());
-console.log("subtotal de Item 3: " + item3.subtotal());
-console.log("subtotal de Item 4: " + item4.subtotal());
+await cartService.addItem(myCart, item1);
+await cartService.addItem(myCart, item2);
+
+console.log(`Shopee Cart Total is: `)
+
+await cartService.calculateTotal(myCart);
