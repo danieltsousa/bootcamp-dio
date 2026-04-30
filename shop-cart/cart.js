@@ -4,22 +4,24 @@ userCart.push(item);
 }
 
 async function deleteItem(userCart, name) {
-
+const index = userCart.findIndex((item) => item.name === name);
+if (index !== -1){
+    userCart.splice(index,1);
+}
 }
 
 async function removeItem(userCart, index) {
-    
+    // encontrar o indice do item
+    const indexFound = userCart.findIndex((p) => p.name === item.name);
+    console.log("item não encontrado");
+    return;
 }
- async function displayCart(userCart, index) {
-     console.log("Shopee cart list:")
-     userCart.forEach((item, index) => {
-         console.log(`${index + 1}. ${item.name} - R$ ${item.price} | ${item.quantify} | Subtotal ${item.subtotal()}`);
- });
- }
 
 async function calculateTotal(userCart) {
+    console.log("Shopee  Cart TOTAL IS:");
+
      const result =  userCart.reduce((total, item) => total + item.subtotal());
- console.log(result)
+ console.log(`TOTAL: ${result}`);
 }
 
 export{
