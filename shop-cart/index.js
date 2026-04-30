@@ -5,6 +5,7 @@ import createItem from "./services/item.js";
 
 
 const myCart = [];
+const myWhishList
 
 console.log("Welcome to the shopping cart!");
 
@@ -19,6 +20,10 @@ const item4 = await createItem("Screenium Oled Monitor ", 299.99, 1);
 await cartService.addItem(myCart, item1);
 await cartService.addItem(myCart, item2);
 
-console.log(`Shopee Cart Total is: `)
+await cartService.removeItem(myCart, item1);
+await cartService.removeItem(myCart, item2);
+
+
+await cartService.displayCart(myCart)
 
 await cartService.calculateTotal(myCart);
