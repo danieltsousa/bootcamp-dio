@@ -18,10 +18,10 @@ async function removeItem(userCart, index) {
 }
 
 async function calculateTotal(userCart) {
-    console.log("Shopee  Cart TOTAL IS:");
+    console.log("Shopee  Cart TOTAL:");
 
      const result =  userCart.reduce((total, item) => total + item.subtotal());
- console.log(`TOTAL: ${result}`);
+ console.log(`You got ${result}`);
 }
 
 export{
