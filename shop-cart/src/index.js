@@ -1,30 +1,54 @@
-import * as cartService from "./services/cart.js"
+//--> adicionar item no carinho
+async function addItem(userCart, item){
+userCart.push(item);
+}
 
-import createItem from "./services/item.js";
+async function deleteItem(userCart, name) {
+const index = userCart.findIndex((item) => item.name === name);
+if (index !== -1){
+    userCart.splice(index,1);
+}
+}
 
+async function removeItem(userCart, index) {
+    const deleteIndex = index - 1;
 
-
-const myCart = [];
-const myWhishList = [];
-
-console.log("Welcome to the shopping cart!");
-
-const item1 = await createItem("Goiás E.C soccer jersey", 20.89, 3);
-
-const item2 = await createItem("Portable videogame GameX 64gb", 155.50, 2);
-
-const item3 = await createItem("Wireless headphones Soundcore", 89.99, 1);
-
-const item4 = await createItem("Screenium Oled Monitor ", 299.99, 1);
-
-await cartService.addItem(myCart, item1);
-await cartService.addItem(myCart, item2);
-
-await cartService.removeItem(myCart, item1);
-await cartService.removeItem(myCart, item2);
-await cartService.removeItem(myCart, item4);
+    // encontrar o indice do item
+    if(index >= 0 && index < userCart.length){
+        userCart.splice(index, 1)
+    }
+   
+}
 
 
-await cartService.displayCart(myCart)
+async function calculateTotal(userCart) {
+    // Usamos o .reduce para somar, garantindo que o valor inicial seja 0 (número)
+    const result = userCart.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
 
-await cartService.calculateTotal(myCart);
+    console.log(`\nShopee Cart TOTAL IS:`);
+    console.log(`TOTAL: R$ ${result.toFixed(2)}`); // .toFixed(2) para formatar centavos
+}
+
+// Dentro de services/cart.js
+
+// O erro comum é esquecer o 'export' antes de 'async function'
+ async function displayCart(userCart) {
+    console.log("\nShopee cart list:");
+    userCart.forEach((item, index) => {
+        console.log(`${index + 1}. ${item.name} - R$ ${item.price} | ${item.quantity}x | Subtotal: ${item.subtotal()}`);
+    });
+}
+
+export{
+    addItem,
+    calculateTotal,
+    deleteItem,
+    removeItem,
+    displayCart,
+
+}
+//--> deletar item do carrinho
+//--> remover um item 
+//-->  calcular o total
