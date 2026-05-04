@@ -5,7 +5,7 @@ import createItem from "./services/item.js";
 
 
 const myCart = [];
-const myWhishList
+const myWhishList = [];
 
 console.log("Welcome to the shopping cart!");
 
@@ -22,6 +22,7 @@ await cartService.addItem(myCart, item2);
 
 await cartService.removeItem(myCart, item1);
 await cartService.removeItem(myCart, item2);
+await cartService.removeItem(myCart, item4);
 
 
 await cartService.displayCart(myCart)
