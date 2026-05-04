@@ -11,17 +11,20 @@ if (index !== -1){
 }
 
 async function removeItem(userCart, index) {
+    const deleteIndex = index - 1;
+
     // encontrar o indice do item
-    const indexFound = userCart.findIndex((p) => p.name === item.name);
-    console.log("item não encontrado");
-    return;
+    if(index >= 0 && index < userCart.length){
+        userCart.splice(index, 1)
+    }
+   
 }
 
 async function calculateTotal(userCart) {
-    console.log("Shopee  Cart TOTAL:");
+    console.log("Shopee  Cart TOTAL IS:");
 
      const result =  userCart.reduce((total, item) => total + item.subtotal());
- console.log(`You got ${result}`);
+ console.log(`TOTAL: ${result}`);
 }
 
 export{
