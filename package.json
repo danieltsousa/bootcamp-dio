@@ -1,16 +1,29 @@
 {
-  "name": "qr-code-project",
+  "name": "gerenciador-de-podcast",
   "version": "1.0.0",
-  "description": "kit de utilidades para o e-commerce",
+  "description": "API desenvolvida em TypeScript utilizando apenas recursos nativos do Node.js, sem utilização de frameworks externos como Express.",
   "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
-    "start": "node/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipecsousa2000/Gerenciador-de-Podcasts.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
-    "prompt": "^1.3.0"
+  "bugs": {
+    "url": "https://github.com/felipecsousa2000/Gerenciador-de-Podcasts/issues"
+  },
+  "homepage": "https://github.com/felipecsousa2000/Gerenciador-de-Podcasts#readme",
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
   }
 }
